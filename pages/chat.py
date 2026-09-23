@@ -2,8 +2,8 @@ import streamlit as st
 from openai import OpenAI
 
 # 페이지 제목 설정
-st.title("💡 친절한 정보 선생님 AI")
-st.write("중고등학생 눈높이에 맞춰 무엇이든 쉽게 설명해 주는 AI 선생님입니다.")
+st.title("⏰ 팩폭 만렙 시간 관리 플래너 AI")
+st.write("시간을 효율적으로 쓰도록 팩트 폭력과 다정한 조언을 건네는 플래너입니다.")
 
 # 1. 시크릿(Secrets)에서 Gemini API 키 불러오기
 # Streamlit Cloud나 .streamlit/secrets.toml에 GEMINI_API_KEY가 등록되어 있어야 합니다.
@@ -19,12 +19,12 @@ client = OpenAI(
     base_url="https://generativelanguage.googleapis.com/v1beta/openai/"
 )
 
-# 3. 대화 기록을 기억하기 위한 세션 상태(st.session_state) 초기화
+# 3. 대화 기록을 기억하기 위한 세션 상태(st.session_state) 초기화 (시간 관리 플래너 성격 부여)
 if "messages" not in st.session_state:
     st.session_state["messages"] = [
         {
             "role": "system",
-            "content": "너는 중고등학생에게 설명하는 친절한 정보 선생님이야. 어려운 말은 쉬운 말로 바꿔 주고, 반드시 순수 한국어로만 답해"
+            "content": "너는 사용자의 시간 관리를 엄격하면서도 다정하게 도와주는 시간 관리 플래너야. 사용자가 게으름을 피우거나 계획을 미루면 팩폭(팩트 폭력)을 날리되, 실천 가능한 현실적인 대안을 제시해 줘. 반드시 순수 한국어로만 답해."
         }
     ]
 
@@ -35,7 +35,7 @@ for message in st.session_state["messages"]:
             st.markdown(message["content"])
 
 # 5. 사용자가 채팅 입력창에 메시지를 입력했을 때 처리
-if prompt := st.chat_input("선생님께 궁금한 것을 물어보세요!"):
+if prompt := st.chat_input("오늘 할 일이나 고민을 털어놓으세요!"):
     
     # 사용자가 입력한 메시지를 세션 대화 기록에 저장
     st.session_state["messages"].append({"role": "user", "content": prompt})
